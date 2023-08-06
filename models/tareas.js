@@ -30,6 +30,12 @@ class Tareas {
         this._listado = {};
     }
 
+    borrarTarea(id = "") {
+        if (this._listado[id]) {
+            delete this._listado[id];
+        }
+    }
+
     cargarTareasFromArray (tareas = []) {
         tareas.forEach(tarea => {
             console.log(tarea)
@@ -72,6 +78,22 @@ class Tareas {
         })
 
         console.log(listado)
+    }
+
+
+    toggleCompletadas(ids = []) {
+        ids.forEach(id => {
+            const tarea = this._listado[id] 
+            if (!tarea.completadoEn) {
+                tarea.completadoEn = new Date().toISOString()
+            }
+        })
+
+        this.listadoArr.forEach(tarea => {
+            if (!ids.includes(tarea.id)) {
+                this._listado[tarea.id].completadoEn = null
+            }
+        })
     }
 
 }
